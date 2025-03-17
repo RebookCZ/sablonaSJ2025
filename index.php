@@ -12,30 +12,10 @@
     <?php include_once "header.php"?>
     <main>
       <section class="slides-container">
-        <div class="slide fade">
-          <img src="img/banner1.jpg">
-          <div class="slide-text">
-            Prvý nadpis
-          </div>
-        </div>
         
-        <div class="slide fade">
-          <img src="img/banner2.jpg">
-          <div class="slide-text">
-            Druhý nadpis
-          </div>
-        </div>
-        
-        <div class="slide fade">
-          <img src="img/banner3.jpg">
-          <div class="slide-text">
-            Tretí nadpis
-          </div>
-        </div>
-        
-        <a id="prev" class="prev">❮</a>
-        <a id="next" class="next">❯</a>
-        
+        <?php include_once "functions.php";
+          generateSlides(dir:"img/banners")
+        ?>
       </section>
       <section class="container">
         <div class="row">
