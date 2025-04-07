@@ -27,7 +27,7 @@
     </section>
       <section class="container">
       <div class="accordion">
-        <div class="question">Otázka 1</div>
+        <div class="question">Otázka 1</div> 
         <div class="answer">Odpoveď 1</div>
       </div>
       <div class="accordion">
