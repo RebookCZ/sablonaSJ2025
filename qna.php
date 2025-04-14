@@ -28,9 +28,9 @@
       <section class="container">
         <?php
           include_once "otazky.php";
-            use otazkyodpovede\QnA;
-            $qna = new QnA();
-            $qna->readQnA();
+          use otazkyodpovede\QnA;
+          $qna = new QnA();
+          $qna->readQnA();
         ?>
       </section>
     </section>
@@ -64,7 +64,7 @@
       Created and designed by Lívia
     </div>
   </footer>
-<script src="js/accordion.js"></script>
-<script src="js/menu.js"></script>
+  <script src="js/accordion.js"></script>
+  <script src="js/menu.js"></script>
 </body>
 </html>

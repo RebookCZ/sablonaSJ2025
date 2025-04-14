@@ -1,55 +1,35 @@
-<?php 
+<?php
 namespace otazkyodpovede;
 
-define('__ROOT__', dirname(dirname(__FILE__)));
-require_once('db/config.php');
+require_once "database/database.php";
 
+use database\Database;
 use PDO;
 use PDOException;
 
-class QnA {
-    public $conn;
-
-    public function __construct() {
-        $this->connect();
-    }
-
-    private function connect() {
-        $config = DATABASE;
-
-        $options = array(
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-        );
-
+class QnA extends Database
+{
+    public function readQnA()
+    {
         try {
-            $this->conn = new PDO(
-                'mysql:host='.$config['HOST'].';dbname='.$config['DBNAME'].';port='.$config['PORT'],
-                $config['USER_NAME'],
-                $config['PASSWORD'],
-                $options
-            );
-        } catch (PDOException $e) {
-            die("Chyba pripojenia: " . $e->getMessage());
-        }
-    }
-
-    public function readQnA() {
-        try {
-            $sql = "SELECT otazka, odpoved FROM otazky";
-            $stmt = $this->conn->prepare($sql); 
+            $stmt = $this->getConnection()->prepare("SELECT * FROM qna");
             $stmt->execute();
-            $results = $stmt->fetchAll();
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            foreach ($results as $row) {
-                echo '<div class="accordion">';
-                echo '<div class="question">' . htmlspecialchars($row['otazka']) . '</div>';
-                echo '<div class="answer">' . htmlspecialchars($row['odpoved']) . '</div>';
-                echo '</div>';
+            if ($data) {
+                
+                foreach ($data as $item) {
+                    echo '<div class="accordion">';
+                    echo '<div class="question">' . htmlspecialchars($item['otazka']) . '</div>';
+                    echo '<div class="answer">' . htmlspecialchars($item['odpoved']) . '</div>';
+                    echo '</div>';
+                }
+                
+            } else {
+                echo "<p>Žiadne otázky zatiaľ neboli pridané.</p>";
             }
         } catch (PDOException $e) {
-            echo "Chyba pri načítaní dát: " . $e->getMessage();
+            echo "<p>Chyba pri načítaní otázok: " . $e->getMessage() . "</p>";
         }
     }
 }
-?>
